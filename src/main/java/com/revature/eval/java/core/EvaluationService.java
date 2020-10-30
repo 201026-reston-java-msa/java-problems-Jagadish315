@@ -1,8 +1,10 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class EvaluationService {
 
@@ -15,7 +17,13 @@ public class EvaluationService {
 	 */
 	public String reverse(String string) {
 		
-		return "";
+		String rev="";
+		for (int i=string.length()-1; i>=0;i--) {
+			   rev=rev+string.charAt(i);
+			 }
+			//System.out.println(rev);
+			return rev;
+
 	}
 
 	/**
@@ -27,8 +35,16 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		//String phrase="Portable Network Graphics";
+		String acronym="";
+		String a[]=phrase.split(" ");
+		for(int i=0; i<a.length;i++) {
+			char acr=a[i].charAt(0);
+			acronym=acronym+acr;
+		}
+			acronym=acronym.toUpperCase();
+		
+			return acronym;
 	}
 
 	/**
@@ -82,18 +98,31 @@ public class EvaluationService {
 
 		public boolean isEquilateral() {
 			// TODO Write an implementation for this method declaration
+			if((sideOne==sideTwo)&&(sideTwo==sideThree)) {
+				return true;
+			}else {
+			
 			return false;
-		}
+		}}
 
 		public boolean isIsosceles() {
 			// TODO Write an implementation for this method declaration
+			if((sideOne==sideTwo)||(sideTwo==sideThree)||(sideOne==sideThree)) {
+				return true;
+			}else {
+			
 			return false;
-		}
+		}}
+		
 
 		public boolean isScalene() {
 			// TODO Write an implementation for this method declaration
+			if((sideOne!=sideTwo)&&(sideTwo!=sideThree)&&(sideOne!=sideThree)) {
+				return true;
+			}else {
+			
 			return false;
-		}
+		}}
 
 	}
 
@@ -114,8 +143,19 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
-	}
+		int result=0;
+		string=string.toUpperCase();
+		result=result+(string.length()-string.replaceAll("[AEIOULNRST]", "").length())*1;
+		result=result+(string.length()-string.replaceAll("[DG]", "").length())*2;
+		result=result+(string.length()-string.replaceAll("[BCMP]", "").length())*3;
+		result=result+(string.length()-string.replaceAll("[FHVWY]", "").length())*4;
+		result=result+(string.length()-string.replaceAll("[K]", "").length())*5;
+		result=result+(string.length()-string.replaceAll("[JX]", "").length())*8;
+		result=result+(string.length()-string.replaceAll("[QZ]", "").length())*10;
+		return result;
+		
+			}
+
 
 	/**
 	 * 5. Clean up user-entered phone numbers so that they can be sent SMS messages.
@@ -149,9 +189,23 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
-	}
+	
+		//TODO Write an implementation for this method declaration
+		string=string.replace(" ", "");
+		string=string.replaceAll("[+.-]", "");
+	
+		int length=string.length();
+		//String x="";
+		for (int i=0; i<1;i++) {
+			char y=string.charAt(0);
+			if (y=='1' && length==11) {
+				string=string.substring(1, 11);
+					
+			}}
+	return string;
+	
+}
+	
 
 	/**
 	 * 6. Given a phrase, count the occurrences of each word in that phrase.
@@ -164,7 +218,21 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String words[]= string.split(" ");
+		Map <String, Integer> wordCount= new HashMap<String, Integer>();
+		for(String word: words) {
+			if(wordCount.containsKey(word)) {
+				wordCount.put(word.toLowerCase(), wordCount.get(word)+1);
+			}else {
+				wordCount.put(word, 1);
+			}
+		}
+		Set<String> wordsInString =wordCount.keySet();
+		for(String word: wordsInString) {
+		if(wordCount.get(word)>=1) {
+			//System.out.println(word+ ": "+wordCount.get(word));
+		}}
+		return wordCount;
 	}
 
 	/**
@@ -240,12 +308,38 @@ public class EvaluationService {
 	 * See http://en.wikipedia.org/wiki/Pig_latin for more details.
 	 * 
 	 * @param string
-	 * @return
+	 * @return 
 	 */
 	public String toPigLatin(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
-	}
+		string=string.toLowerCase();
+		String add="ay";
+		char x=string.charAt(0);
+		switch(x) {
+		case 'a':
+			string=string+add;
+			break;
+		case 'e':
+			string=string+add;
+			break;
+		case 'i':
+			string=string+add;
+			break;
+		case 'o':
+			string=string+add;
+			break;
+		case 'u':
+			string=string+add;
+			break;
+		default:
+			String s=Character.toString(x);
+			String sub=string.substring(1, string.length());
+			string=sub+s+add;
+		}
+		return string;
+	//	System.out.println(string);
+}
+	
 
 	/**
 	 * 9. An Armstrong number is a number that is the sum of its own digits each
@@ -264,7 +358,30 @@ public class EvaluationService {
 	 */
 	public boolean isArmstrongNumber(int input) {
 		// TODO Write an implementation for this method declaration
-		return false;
+		int t1=input;
+		int length=0;
+		while(t1!=0) {
+			length= length+1;
+			t1=t1/10;
+		}
+		int t2=input;
+		int armstrong=0;
+		while(t2!=0) {
+			int mul=1;
+			int rem=t2%10;
+			for (int i=1;i<=length;i++) {
+				mul=mul*rem;
+			}
+			armstrong=armstrong+mul;
+			t2=t2/10;
+		}
+		if (armstrong==input) {
+		//	System.out.println(input+ " is armstrong number");
+			return true;
+		}else {
+		//	System.out.println(input+ " is not armstrong number");
+			return false;
+		}
 	}
 
 	/**
@@ -278,8 +395,23 @@ public class EvaluationService {
 	 * @return
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
+		int temp=0;
+		String result="";
+		for (int i=2; i<l;i++) {
+			if (l%i==0) {
+				temp=temp+1;
+			}
+		}if (temp>0) {
+			//System.out.println("is not Prime");
+			result= "is not Prime";
+		}else {
+			//System.out.println("Number is prime");
+			result= "is a Prime";
+		}
+		//return result;
 		return null;
+	}
+
 	}
 
 	/**
