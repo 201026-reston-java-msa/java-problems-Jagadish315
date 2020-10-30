@@ -490,8 +490,8 @@ public class EvaluationService {
 		}
 		
 	}
-		int a= (list.indexOf(i)+1);
-		return a;
+	
+		return list.size();
 	}
 		 
 	
