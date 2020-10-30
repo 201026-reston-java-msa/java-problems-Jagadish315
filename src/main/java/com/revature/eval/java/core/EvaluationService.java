@@ -1,9 +1,11 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 public class EvaluationService {
@@ -469,8 +471,30 @@ public class EvaluationService {
 	 */
 	public int calculateNthPrime(int i) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		List<Integer> list= new ArrayList<Integer>();
+		Scanner scan =new Scanner(System.in);
+		System.out.println("Enter a prime number to get rank: ");
+		 i= scan.nextInt();
+		
+		
+		for (int l=1; l<=i;l++) {
+			int temp=0;
+		for(int j=l; j>=1;j--) {
+			
+		
+			if (l%j==0) {
+				temp=temp+1;
+			}
+		}if (temp==2) {
+			list.add(l);
+		}
+		
 	}
+		int a= (list.indexOf(i)+1);
+		return a;
+	}
+		 
+	
 
 	/**
 	 * 13 & 14. Create an implementation of the atbash cipher, an ancient encryption
